@@ -1,0 +1,49 @@
+{
+  "name": "puppeteer-brillo",
+  "version": "1.0.0",
+  "description": "Puppeteer tools to help you scrape websites",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OrthoFi/puppeteer-brillo.git"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "tsc",
+    "test": "jest"
+  },
+  "author": "Brian Schiller",
+  "license": "MIT",
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "testRegex": "^.+\\.spec\\.ts$"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.25",
+    "@types/puppeteer": "^2.0.0",
+    "jest": "^24.9.0",
+    "prettier": "^1.19.1",
+    "ts-jest": "^24.3.0",
+    "typescript": "^3.7.4"
+  },
+  "peerDependencies": {
+    "puppeteer": "*"
+  },
+  "dependencies": {
+    "puppeteer": "^2.0.0"
+  }
+}
