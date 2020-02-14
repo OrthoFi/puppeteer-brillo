@@ -14,7 +14,8 @@
   "scripts": {
     "prepare": "npm run build",
     "build": "tsc",
-    "test": "jest"
+    "test": "jest --detectOpenHandles --forceExit",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest"
   },
   "author": "Brian Schiller",
   "license": "MIT",

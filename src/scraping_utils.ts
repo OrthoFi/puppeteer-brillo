@@ -2,11 +2,9 @@ import { ElementHandle, Page, JSHandle, Request } from "puppeteer";
 import { TimeoutError } from "puppeteer/Errors";
 import { writeFile as writeFileCb } from "fs";
 import { promisify } from "util";
-const writeFile = promisify(writeFileCb);
+import { sleep } from './utils';
 
-function sleep(ms: number) {
-  return new Promise(r => setTimeout(r, ms));
-}
+const writeFile = promisify(writeFileCb);
 
 export function getText(el: ElementHandle<Element>) {
   return el.getProperty("innerText").then(it => it.jsonValue()) as Promise<
