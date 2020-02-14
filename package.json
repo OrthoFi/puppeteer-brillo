@@ -1,6 +1,6 @@
 {
   "name": "puppeteer-brillo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Puppeteer tools to help you scrape websites",
   "repository": {
     "type": "git",
