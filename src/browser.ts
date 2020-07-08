@@ -1,15 +1,27 @@
 import puppeteer from "puppeteer";
 
 let browser: puppeteer.Browser | null = null;
+let browserP: Promise<puppeteer.Browser> | null = null;
 let livePages = 0;
 let closeBrowserTimeout: NodeJS.Timeout | null = null;
 
 export async function getPage(opts: puppeteer.LaunchOptions = {}): Promise<puppeteer.Page> {
   cancelCloseBrowser();
-  if (!browser) {
-    browser = await puppeteer.launch(opts);
+  if (!browser && !browserP) {
+    // in the time spent awaiting puppeteer.launch,
+    // another thread of execution might also attempt to get a page.
+    // in that scenario, we would accidentally launch two browsers,
+    // and one would never be cleaned up. Thereforce, we synchronously
+    // assign to browserP during the time that we're awaiting the launch.
+    // This is an instance of the request coalescing pattern, if you want
+    // to read more about it.
+    browserP = puppeteer.launch(opts);
+    browser = await browserP;
+    browserP = null;
+  } else if (browserP) {
+    browser = await browserP;
   }
-  const page = await browser.newPage();
+  const page = await browser!.newPage();
   livePages += 1;
   return page;
 }
@@ -30,6 +42,14 @@ function _closeBrowser() {
   // someone asks for a new page we know we need to make a browser.
   // these two operations would be a "critical section", but node is
   // single-threaded, so there's no need to orchestrate it as such.
+}
+
+export function forceCloseBrowser() {
+  if (!browser) return Promise.resolve(); // browser already closed
+  const p = browser.close();
+  browser = null;
+  cancelCloseBrowser(); // cancel any scheduled behavior in the future
+  return p;
 }
 
 function scheduleCloseBrowser() {
