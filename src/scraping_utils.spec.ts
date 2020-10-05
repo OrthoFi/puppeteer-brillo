@@ -10,11 +10,10 @@ import {
   commonAncestor,
   nearestParentLike,
 } from './scraping_utils';
-import { TimeoutError } from 'puppeteer/Errors';
 import { sleep } from './utils';
 import { withPage, getPage, disposePage } from './browser';
-import { Page } from 'puppeteer';
-
+import { Page, errors } from 'puppeteer';
+const { TimeoutError } = errors;
 const readFile = promisify(readFileCb);
 
 describe('scraping utils', () => {
