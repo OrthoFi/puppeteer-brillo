@@ -1,9 +1,8 @@
-import { ElementHandle, Page, JSHandle, Request } from "puppeteer";
-// @ts-ignore
-import { TimeoutError } from 'puppeteer/lib/cjs/api';
+import { ElementHandle, Page, JSHandle, Request, errors } from "puppeteer";
 import { writeFile as writeFileCb } from "fs";
 import { promisify } from "util";
 import { sleep } from './utils';
+const { TimeoutError } = errors;
 
 const writeFile = promisify(writeFileCb);
 

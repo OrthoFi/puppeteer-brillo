@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.25",
-    "@types/puppeteer": "^3.0.1",
+    "@types/puppeteer": "^3.0.2",
     "jest": "^24.9.0",
     "prettier": "^1.19.1",
     "ts-jest": "^24.3.0",
@@ -43,5 +43,8 @@
   },
   "peerDependencies": {
     "puppeteer": "^5.0.0"
+  },
+  "dependencies": {
+    "puppeteer": "^5.3.1"
   }
 }
